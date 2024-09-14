@@ -10,6 +10,13 @@ MongoDB - For Database
 Cloudinary - For Storing Videos & Images
 ```
 
+## For Testing Using Admin Credentials 
+```
+email - rachitp509@gmail.com
+
+password - Rachit@123
+```
+
 ### Server Deployed Link - [https://ksolve-app.adaptable.app]
 
 ### Client Deployed Link - [https://ksolve-front-aibe.vercel.app]
