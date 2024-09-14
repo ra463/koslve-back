@@ -2,7 +2,7 @@ const catchAsyncError = require("../utils/catchAsyncError");
 const ErrorHandler = require("../utils/errorHandler");
 const Class = require("../models/Class");
 const cloudinary = require("cloudinary");
-const getDataUri = require("../utils/dataUri");
+const { getDataUri } = require("../utils/dataUri");
 const Book = require("../models/Book");
 const Chapter = require("../models/Chapter");
 const Lecture = require("../models/Lecture");
@@ -42,6 +42,7 @@ exports.createClass = catchAsyncError(async (req, res, next) => {
 
   res.status(201).json({
     success: true,
+    message: "Class created successfully",
     clas,
   });
 });
@@ -68,6 +69,25 @@ exports.getClass = catchAsyncError(async (req, res, next) => {
   res.status(200).json({
     success: true,
     clas,
+  });
+});
+
+exports.enrollInClass = catchAsyncError(async (req, res, next) => {
+  const { id } = req.params;
+
+  const user = await User.findById(req.userId);
+  if (user.enrolledClasses.includes(id)) {
+    return next(
+      new ErrorHandler("You are already enrolled in this class", 403)
+    );
+  }
+
+  user.enrolledClasses.push(id);
+  await user.save();
+
+  res.status(200).json({
+    success: true,
+    message: "Class enrolled successfully",
   });
 });
 

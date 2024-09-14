@@ -3,7 +3,7 @@ const ErrorHandler = require("../utils/errorHandler");
 const Lecture = require("../models/Lecture");
 const Comment = require("../models/Comment");
 const cloudinary = require("cloudinary");
-const getDataUri = require("../utils/dataUri");
+const { getDataUri } = require("../utils/dataUri");
 
 exports.createLecture = catchAsyncError(async (req, res, next) => {
   const { title, description } = req.body;
@@ -14,9 +14,11 @@ exports.createLecture = catchAsyncError(async (req, res, next) => {
   const { chapterId } = req.params;
 
   const file = req.file;
+
   const fileUri = await getDataUri(file);
+  console.log(fileUri);
   const myCloud = await cloudinary.v2.uploader.upload(fileUri.content, {
-    folder: "ksolve",
+    resource_type: "video",
   });
 
   const lecture = await Lecture.create({

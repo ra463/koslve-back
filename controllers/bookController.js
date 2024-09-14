@@ -21,6 +21,7 @@ exports.createBook = catchAsyncError(async (req, res, next) => {
 
   res.status(201).json({
     success: true,
+    message: "Book created successfully",
     book,
   });
 });

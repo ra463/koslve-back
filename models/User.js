@@ -21,8 +21,6 @@ const schema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
-      minlength: [7, "Password must be at least 7 characters long"],
-      maxLength: [14, "Password must be at most 14 characters long"],
     },
     enrolledClasses: [
       {

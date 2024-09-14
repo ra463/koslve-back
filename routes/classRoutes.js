@@ -7,6 +7,7 @@ const {
   getClass,
   deleteClass,
   getAllEnrolledClasses,
+  enrollInClass,
 } = require("../controllers/classController");
 
 const router = express.Router();
@@ -14,6 +15,7 @@ const router = express.Router();
 router.post("/create-class", auth, isAdmin, upload, createClass);
 router.get("/get-all-class", auth, getAllClasses);
 router.get("/get-class/:id", auth, getClass);
+router.post("/enroll/:id", auth, enrollInClass);
 router.get("/get-enrolled-classes", auth, getAllEnrolledClasses);
 router.delete("/delete-class/:id", auth, isAdmin, deleteClass);
 
