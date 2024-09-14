@@ -13,7 +13,7 @@ Cloudinary - For Storing Videos & Images
 **Clone This Repo**
 
 ```
-git clone 
+git clone https://github.com/ra463/koslve-back.git
 ```
 
 Create a file named `config.env` in the `config` folder and add the following env variable
