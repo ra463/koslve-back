@@ -15,6 +15,7 @@ exports.createComment = catchAsyncError(async (req, res, next) => {
 
   res.status(201).json({
     success: true,
+    message: "Comment created successfully",
     comment,
   });
 });
@@ -36,13 +37,14 @@ exports.replyComment = catchAsyncError(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
+    message: "Reply added successfully",
     comment,
   });
 });
 
 exports.getAllComments = catchAsyncError(async (req, res, next) => {
   const { lectureId } = req.params;
-  const comments = await Comment.find({ lecture: lectureId }).populate("user");
+  const comments = await Comment.find({ lecture: lectureId }).populate("user").populate("replies.user");
 
   res.status(200).json({
     success: true,

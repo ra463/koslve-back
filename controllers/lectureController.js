@@ -1,7 +1,6 @@
 const catchAsyncError = require("../utils/catchAsyncError");
 const ErrorHandler = require("../utils/errorHandler");
 const Lecture = require("../models/Lecture");
-const Comment = require("../models/Comment");
 const cloudinary = require("cloudinary");
 const { getDataUri } = require("../utils/dataUri");
 
@@ -16,7 +15,6 @@ exports.createLecture = catchAsyncError(async (req, res, next) => {
   const file = req.file;
 
   const fileUri = await getDataUri(file);
-  console.log(fileUri);
   const myCloud = await cloudinary.v2.uploader.upload(fileUri.content, {
     resource_type: "video",
   });
@@ -57,21 +55,5 @@ exports.getLecture = catchAsyncError(async (req, res, next) => {
   res.status(200).json({
     success: true,
     lecture,
-  });
-});
-
-exports.deleteLecture = catchAsyncError(async (req, res, next) => {
-  const { lectureId } = req.params;
-
-  const lecture = await Lecture.findById(lectureId);
-  if (!lecture) return next(new ErrorHandler("Lecture not found", 404));
-
-  await cloudinary.v2.uploader.destroy(lecture.video.public_id);
-  await Comment.deleteMany({ lecture: lectureId });
-  await lecture.deleteOne();
-
-  res.status(200).json({
-    success: true,
-    message: "Lecture deleted successfully",
   });
 });

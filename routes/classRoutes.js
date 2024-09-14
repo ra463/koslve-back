@@ -5,7 +5,6 @@ const {
   createClass,
   getAllClasses,
   getClass,
-  deleteClass,
   getAllEnrolledClasses,
   enrollInClass,
 } = require("../controllers/classController");
@@ -17,6 +16,5 @@ router.get("/get-all-class", auth, getAllClasses);
 router.get("/get-class/:id", auth, getClass);
 router.post("/enroll/:id", auth, enrollInClass);
 router.get("/get-enrolled-classes", auth, getAllEnrolledClasses);
-router.delete("/delete-class/:id", auth, isAdmin, deleteClass);
 
 module.exports = router;
